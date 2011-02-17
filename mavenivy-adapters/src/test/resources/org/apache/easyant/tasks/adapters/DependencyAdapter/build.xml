@@ -1,0 +1,33 @@
+<project name="maven-ivy-adapters-test" xmlns:mvn="antlib:org.apache.maven.artifact.ant" xmlns:mavenivy="antlib:org.apache.easyant.tasks.adapters" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+
+	<target name="basicUsage">
+		<ivy:resolve file="ivy.xml"/>
+
+		<mvn:pom id="mypom" />
+		<mavenivy:dependencyAdapter pomRefId="mypom"/>
+	</target>
+
+	<target name="customMapping">
+		<ivy:resolve file="ivy.xml"/>
+
+		<mvn:pom id="mypom" />
+		<mavenivy:dependencyAdapter pomRefId="mypom">
+			<mavenivy:scopeMappings>
+				<mapping conf="default" scope="compile"/>
+				<mapping conf="test" scope="test"/>
+			</mavenivy:scopeMappings>
+		</mavenivy:dependencyAdapter>
+	</target>
+
+	<target name="withoutPomRef">
+		<ivy:resolve file="ivy.xml"/>
+		<mavenivy:dependencyAdapter pomRefId="mypom"/>
+	</target>
+
+	<target name="wrongPomRef">
+		<ivy:resolve file="ivy.xml"/>
+		<mavenivy:dependencyAdapter/>
+	</target>
+
+</project>

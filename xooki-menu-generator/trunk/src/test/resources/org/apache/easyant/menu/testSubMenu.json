@@ -1,0 +1,19 @@
+{
+	"id":"parent",
+	"title":"parent",
+	"children": [
+		{
+			"id":"path/to/one",
+			"title":"one"
+		},
+		{
+			"title":"Child Menu",
+			"importNode":"child",
+			"importRoot":"XookiMenuGeneratorTestSub"
+		},
+		{
+			"id":"path/to/three",
+			"title":"item \"three\""
+		}
+	]
+}
