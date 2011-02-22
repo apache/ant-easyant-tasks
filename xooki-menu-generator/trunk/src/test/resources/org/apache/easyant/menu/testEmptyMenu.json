@@ -16,8 +16,8 @@
  *
  */
 {
-	"id":"empty",
-	"title":"empty",
-	"children": [
-	]
+    "id":"empty",
+    "title":"empty",
+    "children": [
+    ]
 }

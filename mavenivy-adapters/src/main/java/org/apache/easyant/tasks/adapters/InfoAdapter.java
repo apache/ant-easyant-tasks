@@ -25,74 +25,74 @@ import org.apache.tools.ant.Project;
 
 public class InfoAdapter extends AbstractMavenIvyAdapter {
 
-	private TypeMappings typeMappings;
-	private static final String DEFAULT_GROUP_ID = "org.apache.maven";
-	private static final String DEFAULT_ARTIFACT_ID = "super-pom";
-	private static final String DEFAULT_VERSION = "2.0";
-	private static final String DEFAULT_APPLICATION_NAME = "Maven Default Project";
+    private TypeMappings typeMappings;
+    private static final String DEFAULT_GROUP_ID = "org.apache.maven";
+    private static final String DEFAULT_ARTIFACT_ID = "super-pom";
+    private static final String DEFAULT_VERSION = "2.0";
+    private static final String DEFAULT_APPLICATION_NAME = "Maven Default Project";
 
-	@Override
-	public void doExecute() throws BuildException {
-		prepareAndCheck();
+    @Override
+    public void doExecute() throws BuildException {
+        prepareAndCheck();
 
-		ModuleRevisionId mrid = getResolvedReport().getModuleDescriptor()
-				.getModuleRevisionId();
-		if (getModel().getGroupId().equals(DEFAULT_GROUP_ID)) {
-			log("Setting groupId to : " + mrid.getOrganisation(),
-					Project.MSG_DEBUG);
-			getModel().setGroupId(mrid.getOrganisation());
-		}
-		if (getModel().getName().equals(DEFAULT_APPLICATION_NAME)) {
-			log("Setting name to : " + mrid.getName(), Project.MSG_DEBUG);
-			getModel().setName(mrid.getName());
-		}
-		if (getModel().getArtifactId().equals(DEFAULT_ARTIFACT_ID)) {
-			log("Setting artifactId to : " + mrid.getName(), Project.MSG_DEBUG);
-			getModel().setArtifactId(mrid.getName());
-		}
-		if (getModel().getVersion().equals(DEFAULT_VERSION)) {
-			log("Setting version to : " + mrid.getRevision(), Project.MSG_DEBUG);
-			getModel().setVersion(mrid.getRevision());
-		}
-		if (getModel().getDescription() == null) {
-			log("Setting description to : "
-					+ getResolvedReport().getModuleDescriptor()
-							.getDescription(), Project.MSG_DEBUG);
-			getModel().setDescription(
-					getResolvedReport().getModuleDescriptor().getDescription());
-		}
-		// TODO: Handle multiple artifacts
-		if (getResolvedReport().getModuleDescriptor().getAllArtifacts().length >= 1
-				&& getResolvedReport().getModuleDescriptor().getAllArtifacts()[0] != null) {
-			Artifact artifact = (Artifact) getResolvedReport()
-					.getModuleDescriptor().getAllArtifacts()[0];
-			Mapping mapping = getTypeMappings().findTypeMappings(
-					artifact.getType(), artifact.getExt());
-			if (mapping != null) {
-				if (mapping.getMvnPackaging() != null) {
-					getModel().setPackaging(mapping.getMvnPackaging());
-				}
-			}
-		}
+        ModuleRevisionId mrid = getResolvedReport().getModuleDescriptor()
+                .getModuleRevisionId();
+        if (getModel().getGroupId().equals(DEFAULT_GROUP_ID)) {
+            log("Setting groupId to : " + mrid.getOrganisation(),
+                    Project.MSG_DEBUG);
+            getModel().setGroupId(mrid.getOrganisation());
+        }
+        if (getModel().getName().equals(DEFAULT_APPLICATION_NAME)) {
+            log("Setting name to : " + mrid.getName(), Project.MSG_DEBUG);
+            getModel().setName(mrid.getName());
+        }
+        if (getModel().getArtifactId().equals(DEFAULT_ARTIFACT_ID)) {
+            log("Setting artifactId to : " + mrid.getName(), Project.MSG_DEBUG);
+            getModel().setArtifactId(mrid.getName());
+        }
+        if (getModel().getVersion().equals(DEFAULT_VERSION)) {
+            log("Setting version to : " + mrid.getRevision(), Project.MSG_DEBUG);
+            getModel().setVersion(mrid.getRevision());
+        }
+        if (getModel().getDescription() == null) {
+            log("Setting description to : "
+                    + getResolvedReport().getModuleDescriptor()
+                            .getDescription(), Project.MSG_DEBUG);
+            getModel().setDescription(
+                    getResolvedReport().getModuleDescriptor().getDescription());
+        }
+        // TODO: Handle multiple artifacts
+        if (getResolvedReport().getModuleDescriptor().getAllArtifacts().length >= 1
+                && getResolvedReport().getModuleDescriptor().getAllArtifacts()[0] != null) {
+            Artifact artifact = (Artifact) getResolvedReport()
+                    .getModuleDescriptor().getAllArtifacts()[0];
+            Mapping mapping = getTypeMappings().findTypeMappings(
+                    artifact.getType(), artifact.getExt());
+            if (mapping != null) {
+                if (mapping.getMvnPackaging() != null) {
+                    getModel().setPackaging(mapping.getMvnPackaging());
+                }
+            }
+        }
 
-	}
+    }
 
-	public void addTypeMappings(TypeMappings typeMappings) {
-		this.typeMappings = typeMappings;
-	}
+    public void addTypeMappings(TypeMappings typeMappings) {
+        this.typeMappings = typeMappings;
+    }
 
-	public TypeMappings getTypeMappings() {
-		if (typeMappings == null) {
-			// create a default one
-			typeMappings = new TypeMappings();
-			typeMappings.setProject(getProject());
-		}
+    public TypeMappings getTypeMappings() {
+        if (typeMappings == null) {
+            // create a default one
+            typeMappings = new TypeMappings();
+            typeMappings.setProject(getProject());
+        }
 
-		return typeMappings;
-	}
+        return typeMappings;
+    }
 
-	public void setTypeMappings(TypeMappings typeMappings) {
-		this.typeMappings = typeMappings;
-	}
+    public void setTypeMappings(TypeMappings typeMappings) {
+        this.typeMappings = typeMappings;
+    }
 
 }

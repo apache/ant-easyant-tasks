@@ -16,20 +16,20 @@
  *
  */
 {
-	"id":"three",
-	"title":"three",
-	"children": [
-		{
-			"id":"path/to/one",
-			"title":"one"
-		},
-		{
-			"id":"path/to/two",
-			"title":"\'two\'"
-		},
-		{
-			"id":"path/to/three",
-			"title":"item \"three\""
-		}
-	]
+    "id":"three",
+    "title":"three",
+    "children": [
+        {
+            "id":"path/to/one",
+            "title":"one"
+        },
+        {
+            "id":"path/to/two",
+            "title":"\'two\'"
+        },
+        {
+            "id":"path/to/three",
+            "title":"item \"three\""
+        }
+    ]
 }

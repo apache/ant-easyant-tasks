@@ -22,11 +22,11 @@ import org.junit.Test;
 
 public class InfoAdapterTest extends BuildFileTest {
 
-	public InfoAdapterTest() {
-		super();
-	}
-	
-	/**
+    public InfoAdapterTest() {
+        super();
+    }
+    
+    /**
      * Assert that the given substring is not in the log messages.
      */
     public void assertDebugLogNotContaining(String substring) {
@@ -37,70 +37,70 @@ public class InfoAdapterTest extends BuildFileTest {
     }
 
 
-	@Override
-	protected void setUp() throws Exception {
-		configureProject("src/test/resources/org/apache/easyant/tasks/adapters/InfoAdapter/build.xml");
-	}
-	
-	@Test
-	public void testBasicUsage() {
-		executeTarget("basicUsage");
-		assertDebuglogContaining("Setting groupId to : org.mycompany");
-		assertDebuglogContaining("Setting name to : myProject");
-		assertDebuglogContaining("Setting artifactId to : myProject");
+    @Override
+    protected void setUp() throws Exception {
+        configureProject("src/test/resources/org/apache/easyant/tasks/adapters/InfoAdapter/build.xml");
+    }
+    
+    @Test
+    public void testBasicUsage() {
+        executeTarget("basicUsage");
+        assertDebuglogContaining("Setting groupId to : org.mycompany");
+        assertDebuglogContaining("Setting name to : myProject");
+        assertDebuglogContaining("Setting artifactId to : myProject");
 
-		assertDebuglogContaining("Setting version to : 0.1");
+        assertDebuglogContaining("Setting version to : 0.1");
 
-		assertDebuglogContaining("Setting description to : foobar description");
+        assertDebuglogContaining("Setting description to : foobar description");
 
-		assertDebuglogContaining("No typeMappings found, or the typeMappings was empty. Creating default typeMappings");
+        assertDebuglogContaining("No typeMappings found, or the typeMappings was empty. Creating default typeMappings");
 
-		assertDebuglogContaining("Looking for TypeMapping with type=jar and ext=jar");
-		assertDebuglogContaining("TypeMapping found for type=jar and ext=jar Result:  mvnPackaging=jar");
-	}
-	
-	@Test
-	public void testCustomMapping() {
-		executeTarget("customMapping");
-		assertDebuglogContaining("Setting groupId to : org.mycompany");
-		assertDebuglogContaining("Setting name to : myProject");
-		assertDebuglogContaining("Setting artifactId to : myProject");
+        assertDebuglogContaining("Looking for TypeMapping with type=jar and ext=jar");
+        assertDebuglogContaining("TypeMapping found for type=jar and ext=jar Result:  mvnPackaging=jar");
+    }
+    
+    @Test
+    public void testCustomMapping() {
+        executeTarget("customMapping");
+        assertDebuglogContaining("Setting groupId to : org.mycompany");
+        assertDebuglogContaining("Setting name to : myProject");
+        assertDebuglogContaining("Setting artifactId to : myProject");
 
-		assertDebuglogContaining("Setting version to : 0.1");
+        assertDebuglogContaining("Setting version to : 0.1");
 
-		assertDebuglogContaining("Setting description to : foobar description");
-		assertDebugLogNotContaining("No typeMappings found, or the typeMappings was empty. Creating default typeMappings");
+        assertDebuglogContaining("Setting description to : foobar description");
+        assertDebugLogNotContaining("No typeMappings found, or the typeMappings was empty. Creating default typeMappings");
 
-		assertDebuglogContaining("Looking for TypeMapping with type=jar and ext=jar");
-		assertDebuglogContaining("TypeMapping found for type=jar and ext=jar Result:  mvnPackaging=myPackaging");
-	}
+        assertDebuglogContaining("Looking for TypeMapping with type=jar and ext=jar");
+        assertDebuglogContaining("TypeMapping found for type=jar and ext=jar Result:  mvnPackaging=myPackaging");
+    }
 
-	@Test
-	public void testContainingMvnMetadata() {
-		executeTarget("containingMvnMetadata");
-		//those three information are already set by the <pom> task 
-		assertDebugLogNotContaining("Setting groupId to : org.mycompany");
-		assertDebugLogNotContaining("Setting artifactId to : myProject");
-		assertDebugLogNotContaining("Setting version to : 0.1");
-		
-		assertDebuglogContaining("Setting name to : myProject");
+    @Test
+    public void testContainingMvnMetadata() {
+        executeTarget("containingMvnMetadata");
+        //those three information are already set by the <pom> task 
+        assertDebugLogNotContaining("Setting groupId to : org.mycompany");
+        assertDebugLogNotContaining("Setting artifactId to : myProject");
+        assertDebugLogNotContaining("Setting version to : 0.1");
+        
+        assertDebuglogContaining("Setting name to : myProject");
 
-		assertDebuglogContaining("Setting description to : foobar description");
-		assertDebuglogContaining("Looking for TypeMapping with type=jar and ext=jar");
-		assertDebuglogContaining("TypeMapping found for type=jar and ext=jar Result:  mvnPackaging=jar");
-	}
-	
-	@Test
-	public void testWithoutPomRef() {
-		expectBuildException("withoutPomRef", "pomRefId is required !");
-			
-	}
-	
-	@Test
-	public void testWrongPomRef() {
-		expectBuildException("wrongPomRef", "pomRefId references an unexisting pom instance !");
-			
-	}
+        assertDebuglogContaining("Setting description to : foobar description");
+        assertDebuglogContaining("Looking for TypeMapping with type=jar and ext=jar");
+        assertDebuglogContaining("TypeMapping found for type=jar and ext=jar Result:  mvnPackaging=jar");
+    }
+    
+    @Test
+    public void testWithoutPomRef() {
+        expectBuildException("withoutPomRef", "pomRefId is required !");
+            
+    }
+    
+    @Test
+    public void testWrongPomRef() {
+        expectBuildException("wrongPomRef", "pomRefId references an unexisting pom instance !");
+            
+    }
 
-	
+    
 }

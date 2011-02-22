@@ -24,42 +24,42 @@ import org.apache.tools.ant.BuildException;
 
 public abstract class AbstractMavenIvyAdapter extends IvyPostResolveTask {
 
-	private String pomRefId;
-	private Pom pom;
+    private String pomRefId;
+    private Pom pom;
 
-	public AbstractMavenIvyAdapter() {
-		super();
-	}
+    public AbstractMavenIvyAdapter() {
+        super();
+    }
 
-	public String getPomRefId() {
-		return pomRefId;
-	}
+    public String getPomRefId() {
+        return pomRefId;
+    }
 
-	public void setPomRefId(String pomRefId) {
-		this.pomRefId = pomRefId;
-	}
+    public void setPomRefId(String pomRefId) {
+        this.pomRefId = pomRefId;
+    }
 
-	public Pom getPom() {
-		if (pom == null) {
-			pom = (Pom) getProject().getReference(pomRefId);
-		}
-		return pom;
-	}
+    public Pom getPom() {
+        if (pom == null) {
+            pom = (Pom) getProject().getReference(pomRefId);
+        }
+        return pom;
+    }
 
-	public Model getModel() {
-		return getPom().getModel();
-	}
+    public Model getModel() {
+        return getPom().getModel();
+    }
 
-	@Override
-	protected void prepareTask() {
-		super.prepareTask();
-		if (pomRefId == null) {
-			throw new BuildException("pomRefId is required !");
-		}
-		if (getPom() == null) {
-			throw new BuildException("pomRefId references an unexisting pom instance !");
-		}
-	}
+    @Override
+    protected void prepareTask() {
+        super.prepareTask();
+        if (pomRefId == null) {
+            throw new BuildException("pomRefId is required !");
+        }
+        if (getPom() == null) {
+            throw new BuildException("pomRefId references an unexisting pom instance !");
+        }
+    }
 
 
 

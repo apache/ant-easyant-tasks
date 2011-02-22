@@ -22,11 +22,11 @@ import org.junit.Test;
 
 public class DependencyAdapterTest extends BuildFileTest {
 
-	public DependencyAdapterTest() {
-		super();
-	}
-	
-	/**
+    public DependencyAdapterTest() {
+        super();
+    }
+    
+    /**
      * Assert that the given substring is not in the log messages.
      */
     public void assertDebugLogNotContaining(String substring) {
@@ -37,51 +37,51 @@ public class DependencyAdapterTest extends BuildFileTest {
     }
 
 
-	@Override
-	protected void setUp() throws Exception {
-		configureProject("src/test/resources/org/apache/easyant/tasks/adapters/DependencyAdapter/build.xml");
-	}
-	
-	@Test
-	public void testBasicUsage() {
-		executeTarget("basicUsage");
-		assertDebuglogContaining("Building maven dependency entry with org.apache.ivy#ivy;2.1.0");
-		assertDebuglogContaining("Checking mapping for configuration : default, runtime");
-		assertDebuglogContaining("Mapping found for configuration default, runtime with scope runtime");
-		
-		assertDebuglogContaining("Building maven dependency entry with hsqldb#hsqldb;1.8.0.7");
-		assertDebuglogContaining("Checking mapping for configuration : default");
-		assertDebuglogContaining("Mapping found for configuration default with scope compile");
-		assertDebuglogContaining("Building maven dependency entry with junit#junit;4.4");
-		assertDebuglogContaining("Checking mapping for configuration : test");
-		assertDebuglogContaining("Mapping found for configuration test with scope test");
-		
-	}
-	
-	@Test
-	public void testCustomMapping() {
-		executeTarget("customMapping");
-		assertDebuglogContaining("Building maven dependency entry with hsqldb#hsqldb;1.8.0.7");
-		assertDebuglogContaining("Checking mapping for configuration : default");
-		assertDebuglogContaining("Mapping found for configuration default with scope compile");
-		assertDebuglogContaining("Building maven dependency entry with junit#junit;4.4");
-		assertDebuglogContaining("Checking mapping for configuration : test");
-		assertDebuglogContaining("Mapping found for configuration test with scope test");
-	
-	}
+    @Override
+    protected void setUp() throws Exception {
+        configureProject("src/test/resources/org/apache/easyant/tasks/adapters/DependencyAdapter/build.xml");
+    }
+    
+    @Test
+    public void testBasicUsage() {
+        executeTarget("basicUsage");
+        assertDebuglogContaining("Building maven dependency entry with org.apache.ivy#ivy;2.1.0");
+        assertDebuglogContaining("Checking mapping for configuration : default, runtime");
+        assertDebuglogContaining("Mapping found for configuration default, runtime with scope runtime");
+        
+        assertDebuglogContaining("Building maven dependency entry with hsqldb#hsqldb;1.8.0.7");
+        assertDebuglogContaining("Checking mapping for configuration : default");
+        assertDebuglogContaining("Mapping found for configuration default with scope compile");
+        assertDebuglogContaining("Building maven dependency entry with junit#junit;4.4");
+        assertDebuglogContaining("Checking mapping for configuration : test");
+        assertDebuglogContaining("Mapping found for configuration test with scope test");
+        
+    }
+    
+    @Test
+    public void testCustomMapping() {
+        executeTarget("customMapping");
+        assertDebuglogContaining("Building maven dependency entry with hsqldb#hsqldb;1.8.0.7");
+        assertDebuglogContaining("Checking mapping for configuration : default");
+        assertDebuglogContaining("Mapping found for configuration default with scope compile");
+        assertDebuglogContaining("Building maven dependency entry with junit#junit;4.4");
+        assertDebuglogContaining("Checking mapping for configuration : test");
+        assertDebuglogContaining("Mapping found for configuration test with scope test");
+    
+    }
 
-	
-	@Test
-	public void testWithoutPomRef() {
-		expectBuildException("withoutPomRef", "pomRefId is required !");
-			
-	}
-	
-	@Test
-	public void testWrongPomRef() {
-		expectBuildException("wrongPomRef", "pomRefId references an unexisting pom instance !");
-			
-	}
+    
+    @Test
+    public void testWithoutPomRef() {
+        expectBuildException("withoutPomRef", "pomRefId is required !");
+            
+    }
+    
+    @Test
+    public void testWrongPomRef() {
+        expectBuildException("wrongPomRef", "pomRefId references an unexisting pom instance !");
+            
+    }
 
-	
+    
 }

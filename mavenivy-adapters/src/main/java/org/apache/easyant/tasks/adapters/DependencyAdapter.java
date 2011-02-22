@@ -29,59 +29,59 @@ import org.codehaus.plexus.util.StringUtils;
 
 public class DependencyAdapter extends AbstractMavenIvyAdapter {
 
-	private ScopeMappings scopeMapping;
+    private ScopeMappings scopeMapping;
 
-	@Override
-	public void doExecute() throws BuildException {
-		prepareAndCheck();
-		//create a configuration scope mapping helper with our mapping
-		ConfigurationScopeMapping configurationScopeMapping= getScopeMapping().getConfigurationScopeMapping();
-		//loop on project dependencies to build maven dependencies entries
-		for (Iterator iterator = getResolvedReport().getDependencies().iterator(); iterator.hasNext();) {
-			IvyNode node = (IvyNode) iterator.next();
-			ModuleRevisionId dependencyRevisionId =node.getResolvedId();
-			Dependency mavenDependency = new Dependency();
-			log("Building maven dependency entry with " + dependencyRevisionId.toString(), Project.MSG_DEBUG);
-			mavenDependency.setGroupId(dependencyRevisionId.getOrganisation());
-			mavenDependency.setArtifactId(dependencyRevisionId.getName());
-			mavenDependency.setVersion(dependencyRevisionId.getRevision());
-			String confToCheck = StringUtils.join(node.getRootModuleConfigurations(),", ");
-			log("Checking mapping for configuration : " + confToCheck,Project.MSG_DEBUG);
-   		 	String scope = configurationScopeMapping.getScope(node.getRootModuleConfigurations());
+    @Override
+    public void doExecute() throws BuildException {
+        prepareAndCheck();
+        //create a configuration scope mapping helper with our mapping
+        ConfigurationScopeMapping configurationScopeMapping= getScopeMapping().getConfigurationScopeMapping();
+        //loop on project dependencies to build maven dependencies entries
+        for (Iterator iterator = getResolvedReport().getDependencies().iterator(); iterator.hasNext();) {
+            IvyNode node = (IvyNode) iterator.next();
+            ModuleRevisionId dependencyRevisionId =node.getResolvedId();
+            Dependency mavenDependency = new Dependency();
+            log("Building maven dependency entry with " + dependencyRevisionId.toString(), Project.MSG_DEBUG);
+            mavenDependency.setGroupId(dependencyRevisionId.getOrganisation());
+            mavenDependency.setArtifactId(dependencyRevisionId.getName());
+            mavenDependency.setVersion(dependencyRevisionId.getRevision());
+            String confToCheck = StringUtils.join(node.getRootModuleConfigurations(),", ");
+            log("Checking mapping for configuration : " + confToCheck,Project.MSG_DEBUG);
+            String scope = configurationScopeMapping.getScope(node.getRootModuleConfigurations());
             if (scope != null) {
-            	StringBuilder sb = new StringBuilder();
-            	sb.append("Mapping found for configuration ").append(confToCheck);
-            	sb.append( " with scope ").append(scope);
-            	log(sb.toString(),Project.MSG_DEBUG);
-				mavenDependency.setScope(scope);
+                StringBuilder sb = new StringBuilder();
+                sb.append("Mapping found for configuration ").append(confToCheck);
+                sb.append( " with scope ").append(scope);
+                log(sb.toString(),Project.MSG_DEBUG);
+                mavenDependency.setScope(scope);
             }
 
             if (configurationScopeMapping.isOptional(node.getRootModuleConfigurations())) {
-            	log("Setting " + dependencyRevisionId.toString() + " as optional" ,Project.MSG_DEBUG);
+                log("Setting " + dependencyRevisionId.toString() + " as optional" ,Project.MSG_DEBUG);
                 mavenDependency.setOptional(true);
             }
 
-			getPom().addConfiguredDependency(mavenDependency);
-		}
+            getPom().addConfiguredDependency(mavenDependency);
+        }
 
-	}
+    }
 
-	public void add(ScopeMappings scopeMappings) {
-		this.scopeMapping= scopeMappings;
-	}
+    public void add(ScopeMappings scopeMappings) {
+        this.scopeMapping= scopeMappings;
+    }
 
 
 
-	public ScopeMappings getScopeMapping() {
-		if (scopeMapping == null) {
-			scopeMapping=  new ScopeMappings();
-			scopeMapping.setProject(getProject());
-		}
-		return scopeMapping;
-	}
+    public ScopeMappings getScopeMapping() {
+        if (scopeMapping == null) {
+            scopeMapping=  new ScopeMappings();
+            scopeMapping.setProject(getProject());
+        }
+        return scopeMapping;
+    }
 
-	public void setScopeMapping(ScopeMappings scopeMapping) {
-		this.scopeMapping = scopeMapping;
-	}
+    public void setScopeMapping(ScopeMappings scopeMapping) {
+        this.scopeMapping = scopeMapping;
+    }
 
 }

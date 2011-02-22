@@ -33,84 +33,84 @@ import org.apache.ivy.plugins.trigger.Trigger;
 import org.apache.tools.ant.Project;
 
 public class MavenPublishTrigger extends AbstractTrigger implements Trigger {
-	
-	public static final String MAVEN_PUBLISH_TRIGGER_REFERENCE ="maven.publish.trigger.ref";
-	private List<PublishedArtifact> publishedArtifacts = new ArrayList<PublishedArtifact>();
-	private String publishUrl = null;
+    
+    public static final String MAVEN_PUBLISH_TRIGGER_REFERENCE ="maven.publish.trigger.ref";
+    private List<PublishedArtifact> publishedArtifacts = new ArrayList<PublishedArtifact>();
+    private String publishUrl = null;
 
-	public MavenPublishTrigger() {
-		super();
-	}
-	
-	@Override
-	public void progress(IvyEvent event) {
-	
-		Project project = (Project) IvyContext
-				.peekInContextStack(IvyTask.ANT_PROJECT_CONTEXT_KEY);
-		if (project == null) {
-			return;
-		}
-		if (project.getReference(MAVEN_PUBLISH_TRIGGER_REFERENCE) == null) {
-			project.addReference(MAVEN_PUBLISH_TRIGGER_REFERENCE, this);
-		}
+    public MavenPublishTrigger() {
+        super();
+    }
+    
+    @Override
+    public void progress(IvyEvent event) {
+    
+        Project project = (Project) IvyContext
+                .peekInContextStack(IvyTask.ANT_PROJECT_CONTEXT_KEY);
+        if (project == null) {
+            return;
+        }
+        if (project.getReference(MAVEN_PUBLISH_TRIGGER_REFERENCE) == null) {
+            project.addReference(MAVEN_PUBLISH_TRIGGER_REFERENCE, this);
+        }
 
-		Map attributes = event.getAttributes();
-		String artifact = (String) attributes.get("artifact");
-		String artifactFile = (String) attributes.get("file");
-		String type = (String) attributes.get("type");
-		String ext = (String) attributes.get("ext");
-		String resolver = (String) attributes.get("resolver");
-		
-		PublishedArtifact publishedArtifact = new PublishedArtifact();
-		publishedArtifact.setArtifact(artifact);
-		publishedArtifact.setExt(ext);
-		publishedArtifact.setFile(artifactFile);
-		publishedArtifact.setType(type);
-		
-		publishedArtifacts.add(publishedArtifact);
-		
-		extractDeployUrl(resolver);
+        Map attributes = event.getAttributes();
+        String artifact = (String) attributes.get("artifact");
+        String artifactFile = (String) attributes.get("file");
+        String type = (String) attributes.get("type");
+        String ext = (String) attributes.get("ext");
+        String resolver = (String) attributes.get("resolver");
+        
+        PublishedArtifact publishedArtifact = new PublishedArtifact();
+        publishedArtifact.setArtifact(artifact);
+        publishedArtifact.setExt(ext);
+        publishedArtifact.setFile(artifactFile);
+        publishedArtifact.setType(type);
+        
+        publishedArtifacts.add(publishedArtifact);
+        
+        extractDeployUrl(resolver);
 
-	}
+    }
 
-	/**
-	 * @param resolver
-	 */
-	protected void extractDeployUrl(String resolver) {
-		//try to get publish url if the Resolver used to publish was a IBiblioResolver
-		if (publishUrl == null) {
-			DependencyResolver dependencyResolver = IvyContext.getContext()
-					.getSettings().getResolver(resolver);
-			if (dependencyResolver instanceof IBiblioResolver) {
-				IBiblioResolver ibiblioResolver = (IBiblioResolver) dependencyResolver;
-				publishUrl = ibiblioResolver.getRoot();
-			} else 	if (dependencyResolver instanceof URLResolver) {
-				URLResolver urlResolver = (URLResolver) dependencyResolver;
-				//get the whole pattern
-				publishUrl = (String) urlResolver.getArtifactPatterns().get(0);
-				//only keep the token root
-				publishUrl = IvyPatternHelper.getTokenRoot(publishUrl);
-				
-			}
-		}
-	}
+    /**
+     * @param resolver
+     */
+    protected void extractDeployUrl(String resolver) {
+        //try to get publish url if the Resolver used to publish was a IBiblioResolver
+        if (publishUrl == null) {
+            DependencyResolver dependencyResolver = IvyContext.getContext()
+                    .getSettings().getResolver(resolver);
+            if (dependencyResolver instanceof IBiblioResolver) {
+                IBiblioResolver ibiblioResolver = (IBiblioResolver) dependencyResolver;
+                publishUrl = ibiblioResolver.getRoot();
+            } else  if (dependencyResolver instanceof URLResolver) {
+                URLResolver urlResolver = (URLResolver) dependencyResolver;
+                //get the whole pattern
+                publishUrl = (String) urlResolver.getArtifactPatterns().get(0);
+                //only keep the token root
+                publishUrl = IvyPatternHelper.getTokenRoot(publishUrl);
+                
+            }
+        }
+    }
 
-	public List<PublishedArtifact> getPublishedArtifacts() {
-		return publishedArtifacts;
-	}
+    public List<PublishedArtifact> getPublishedArtifacts() {
+        return publishedArtifacts;
+    }
 
-	public void setPublishedArtifacts(List<PublishedArtifact> publishedArtifacts) {
-		this.publishedArtifacts = publishedArtifacts;
-	}
+    public void setPublishedArtifacts(List<PublishedArtifact> publishedArtifacts) {
+        this.publishedArtifacts = publishedArtifacts;
+    }
 
-	public String getPublishUrl() {
-		return publishUrl;
-	}
+    public String getPublishUrl() {
+        return publishUrl;
+    }
 
-	public void setPublishUrl(String publishUrl) {
-		this.publishUrl = publishUrl;
-	}
-	
-	
+    public void setPublishUrl(String publishUrl) {
+        this.publishUrl = publishUrl;
+    }
+    
+    
 
 }

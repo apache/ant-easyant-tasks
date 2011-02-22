@@ -17,39 +17,39 @@
 <project name="maven-ivy-adapters-test" xmlns:mvn="antlib:org.apache.maven.artifact.ant" xmlns:mavenivy="antlib:org.apache.easyant.tasks.adapters" xmlns:ivy="antlib:org.apache.ivy.ant">
 
 
-	<target name="basicUsage">
-		<ivy:resolve file="ivy.xml"/>
+    <target name="basicUsage">
+        <ivy:resolve file="ivy.xml"/>
 
-		<mvn:pom id="mypom" />
-		<mavenivy:infoAdapter pomRefId="mypom"/>
-	</target>
+        <mvn:pom id="mypom" />
+        <mavenivy:infoAdapter pomRefId="mypom"/>
+    </target>
 
-	<target name="customMapping">
-		<ivy:resolve file="ivy.xml"/>
+    <target name="customMapping">
+        <ivy:resolve file="ivy.xml"/>
 
-		<mvn:pom id="mypom" />
-		<mavenivy:infoAdapter pomRefId="mypom">
-			<typeMappings>
-				<mapping type="jar" mvnPackaging="myPackaging"/>
-			</typeMappings>
-		</mavenivy:infoAdapter>
-	</target>
+        <mvn:pom id="mypom" />
+        <mavenivy:infoAdapter pomRefId="mypom">
+            <typeMappings>
+                <mapping type="jar" mvnPackaging="myPackaging"/>
+            </typeMappings>
+        </mavenivy:infoAdapter>
+    </target>
 
-	<target name="containingMvnMetadata">
-		<ivy:resolve file="ivy.xml"/>
+    <target name="containingMvnMetadata">
+        <ivy:resolve file="ivy.xml"/>
 
-		<mvn:pom id="mypom" groupId="myGroupId" artifactId="foobar" version="1.0" />
-		<mavenivy:infoAdapter pomRefId="mypom"/>
-	</target>
+        <mvn:pom id="mypom" groupId="myGroupId" artifactId="foobar" version="1.0" />
+        <mavenivy:infoAdapter pomRefId="mypom"/>
+    </target>
 
-	<target name="withoutPomRef">
-		<ivy:resolve file="ivy.xml"/>
-		<mavenivy:infoAdapter pomRefId="mypom"/>
-	</target>
+    <target name="withoutPomRef">
+        <ivy:resolve file="ivy.xml"/>
+        <mavenivy:infoAdapter pomRefId="mypom"/>
+    </target>
 
-	<target name="wrongPomRef">
-		<ivy:resolve file="ivy.xml"/>
-		<mavenivy:infoAdapter/>
-	</target>
+    <target name="wrongPomRef">
+        <ivy:resolve file="ivy.xml"/>
+        <mavenivy:infoAdapter/>
+    </target>
 
 </project>

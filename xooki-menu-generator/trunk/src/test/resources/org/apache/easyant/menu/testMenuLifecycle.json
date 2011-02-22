@@ -16,12 +16,12 @@
  *
  */
 {
-	"id":"Test",
-	"title":"Test",
-	"children": [
-		{
-			"id":"link",
-			"title":"lonely"
-		}
-	]
+    "id":"Test",
+    "title":"Test",
+    "children": [
+        {
+            "id":"link",
+            "title":"lonely"
+        }
+    ]
 }

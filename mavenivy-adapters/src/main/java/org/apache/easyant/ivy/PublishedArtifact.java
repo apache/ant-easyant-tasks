@@ -18,44 +18,44 @@
 package org.apache.easyant.ivy;
 
 public class PublishedArtifact {
-	
-	private String artifact;
-	private String type;
-	private String ext;
-	private String resolver;
-	private String file;
-	
-	public String getArtifact() {
-		return artifact;
-	}
-	public void setArtifact(String artifact) {
-		this.artifact = artifact;
-	}
-	public String getExt() {
-		return ext;
-	}
-	public void setExt(String ext) {
-		this.ext = ext;
-	}
-	public String getResolver() {
-		return resolver;
-	}
-	public void setResolver(String resolver) {
-		this.resolver = resolver;
-	}
-	public String getFile() {
-		return file;
-	}
-	public void setFile(String file) {
-		this.file = file;
-	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
-	
-	
+    
+    private String artifact;
+    private String type;
+    private String ext;
+    private String resolver;
+    private String file;
+    
+    public String getArtifact() {
+        return artifact;
+    }
+    public void setArtifact(String artifact) {
+        this.artifact = artifact;
+    }
+    public String getExt() {
+        return ext;
+    }
+    public void setExt(String ext) {
+        this.ext = ext;
+    }
+    public String getResolver() {
+        return resolver;
+    }
+    public void setResolver(String resolver) {
+        this.resolver = resolver;
+    }
+    public String getFile() {
+        return file;
+    }
+    public void setFile(String file) {
+        this.file = file;
+    }
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
+    
+    
 
 }

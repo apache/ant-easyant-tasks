@@ -16,11 +16,11 @@
    limitations under the License.
 -->
 <antlib xmlns:current="ant:current">
-	<taskdef name="dependencyAdapter" classname="org.apache.easyant.tasks.adapters.DependencyAdapter"/>
-	<taskdef name="infoAdapter" classname="org.apache.easyant.tasks.adapters.InfoAdapter"/>
-	<typedef name="scopeMappings" classname="org.apache.easyant.tasks.adapters.ScopeMappings"/>
-	<typedef name="typeMappings" classname="org.apache.easyant.tasks.adapters.TypeMappings"/>
-	<taskdef name="deploy" classname="org.apache.easyant.tasks.adapters.Deploy"/>
+    <taskdef name="dependencyAdapter" classname="org.apache.easyant.tasks.adapters.DependencyAdapter"/>
+    <taskdef name="infoAdapter" classname="org.apache.easyant.tasks.adapters.InfoAdapter"/>
+    <typedef name="scopeMappings" classname="org.apache.easyant.tasks.adapters.ScopeMappings"/>
+    <typedef name="typeMappings" classname="org.apache.easyant.tasks.adapters.TypeMappings"/>
+    <taskdef name="deploy" classname="org.apache.easyant.tasks.adapters.Deploy"/>
 
-	<taskdef name="registertrigger" classname="org.apache.easyant.tasks.RegisterTrigger"/>
+    <taskdef name="registertrigger" classname="org.apache.easyant.tasks.RegisterTrigger"/>
 </antlib>

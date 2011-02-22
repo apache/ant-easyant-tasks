@@ -16,5 +16,5 @@
    limitations under the License.
 -->
 <antlib xmlns:current="ant:current">
-	<typedef name="jnlp" classname="org.apache.easyant.tasks.JNLPTask"/>
+    <typedef name="jnlp" classname="org.apache.easyant.tasks.JNLPTask"/>
 </antlib>

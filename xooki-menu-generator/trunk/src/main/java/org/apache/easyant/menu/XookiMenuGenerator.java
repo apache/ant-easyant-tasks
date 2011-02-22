@@ -137,7 +137,7 @@ public class XookiMenuGenerator implements MenuGenerator<XookiMenuGenerator> {
     }
 
     private String toId(String title) {
-        return title.replaceAll("\\W+", "_");
+        return title.replaceAll("\W+", "_");
     }
 
     /**
@@ -146,8 +146,10 @@ public class XookiMenuGenerator implements MenuGenerator<XookiMenuGenerator> {
      */
     private class Block {
 
-        private static final String FIRST_ENTRY_SEP = "\n";
-        private static final String NEXT_ENTRY_SEP = ",\n";
+        private static final String FIRST_ENTRY_SEP = "
+";
+        private static final String NEXT_ENTRY_SEP = ",
+";
 
         private Block parent; //points up the context stack
         private char close;   //character to write when this block is ended
@@ -192,7 +194,8 @@ public class XookiMenuGenerator implements MenuGenerator<XookiMenuGenerator> {
             if (parent == null) {
                 throw new NoSuchElementException("Cannot pop the root element");
             }
-            fileWriter.append('\n');
+            fileWriter.append('
+');
             return parent.endBlock(close); //return reference to parent, popping the stack
         }
 
@@ -215,7 +218,7 @@ public class XookiMenuGenerator implements MenuGenerator<XookiMenuGenerator> {
         /** append a quoted, escaped string literal to this block */
         private Block appendLiteral(String value) throws IOException {
             //escape any ' or " so that they don't screw up our syntax
-            value = value.replaceAll("(['\"])", "\\\\$1");
+            value = value.replaceAll("(['\"])", "\\$1");
             //enclose the value in quotes to include any whitespace
             fileWriter.append("\"").append(value).append("\"");
             return this;
