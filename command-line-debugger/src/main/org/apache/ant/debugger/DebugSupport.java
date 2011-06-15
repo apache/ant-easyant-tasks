@@ -3,17 +3,9 @@ package org.apache.ant.debugger;
 import org.apache.tools.ant.Project;
 
 /**
- * An interface for supporting debug commands.
+ * An interface for supporting debug commands. All debug commands MUST implement this interface.
  */
 public interface DebugSupport {
-
-	/**
-	 * Check if this command is supported.
-	 * 
-	 * @param command
-	 * @return
-	 */
-	public boolean commandSupported(String command);
 
 	/**
 	 * Main execution body of the class. Pass all command parameters.

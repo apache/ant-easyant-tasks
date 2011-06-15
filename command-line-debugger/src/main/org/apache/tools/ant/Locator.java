@@ -6,23 +6,24 @@ import java.util.Map;
 
 import org.apache.ant.debugger.DebugSupport;
 import org.apache.ant.debugger.DebugUtils;
-
 import org.apache.tools.ant.taskdefs.Property;
-import org.apache.tools.ant.types.Path;
 
 /**
- * Locates properties / paths in static build sources
+ * Locates properties in static build sources.
+ * 
+ * TODO: See how this can be augmented to support other Tasks.
  */
 public class Locator implements DebugSupport {
-
-	public boolean commandSupported(String command) {
-		return "locate".equalsIgnoreCase(command);
-	}
 
 	public void execute(Project project, String[] params) {
 		// the command syntax is 'locate property some.property'
 		// or 'locate path some.path
-		if (params.length != 3 || "/?".equals(params[1])) {
+		if (params.length > 1 && "/?".equals(params[1])) {
+			printUsage(project);
+			return;
+		}
+		if (params.length != 3) {
+			project.log("Incorrect Parameters");
 			printUsage(project);
 			return;
 		}
@@ -33,10 +34,6 @@ public class Locator implements DebugSupport {
 			// locate and publish the property
 			matches = DebugUtils.searchTask(Property.class, project);
 			key = "name";
-		} else if ("path".equalsIgnoreCase(params[1])) {
-			// locate and publish the path
-			matches = DebugUtils.searchTask(Path.class, project);
-			key = "id";
 		} else {
 			// see if any other component may be supported
 			project.log("Unexpected component: " + params[1]);
@@ -69,7 +66,6 @@ public class Locator implements DebugSupport {
 	}
 
 	public void printUsage(Project project) {
-		project.log("Incorrect Parameters");
-		project.log("Usage: locate property/path propertyname/pathname");
+		project.log("Usage: locate property some.property");
 	}
 }

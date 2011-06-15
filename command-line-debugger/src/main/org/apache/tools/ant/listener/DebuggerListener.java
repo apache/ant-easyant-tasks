@@ -51,12 +51,18 @@ public class DebuggerListener implements BuildListener, DebugSupport {
 
 	/**
 	 * Contains the current target being executed.
+	 * 
+	 * TODO: This is not being used now but there is a possibility for its use.
 	 */
 	protected Target currentTarget = null;
 
 	/**
 	 * An Auditor instance that keeps track of all changes to properties
 	 * identified by the user.
+	 * 
+	 * 
+	 * TODO: The auditor instance itself should be pluggable, I think to allow
+	 * different PropertyHelpers to be used.
 	 */
 	protected Auditor auditor = null;
 
@@ -111,7 +117,8 @@ public class DebuggerListener implements BuildListener, DebugSupport {
 		if (auditor instanceof DebugSupport) {
 			Map defaults = new HashMap();
 			defaults.put("trace", auditor);
-			defaults.put("add", this);
+			defaults.put("break", this);
+			defaults.put("watch", this);
 			return defaults;
 		}
 		return null;
@@ -165,41 +172,46 @@ public class DebuggerListener implements BuildListener, DebugSupport {
 	 * target/property break points at runtime.
 	 */
 
-	/**
-	 * The current listener as a {@link DebugSupport} command only supports add
-	 * new breakpoints.
+	/*
+	 * TODO INFO command is yet to be implemented. The idea is to output a list
+	 * of all target break points and properties being monitored with their
+	 * statuses (Pending / Done etc).
 	 */
-	public boolean commandSupported(String command) {
-		return "add".equals(command);
-	}
-
 	public void execute(Project project, String[] params) {
-		if (params.length < 3) {
+		if (params.length > 1 && "/?".equals(params[1])) {
+			printUsage(project);
+			return;
+		}
+		if (params.length < 2) {
+			project.log("Incorrect Parameters");
 			printUsage(project);
 			return;
 		}
 
-		if (!"property".equals(params[1]) && !"target".equals(params[1])) {
-			printUsage(project);
-			return;
-		}
-
-		boolean isproperty = "property".equals(params[1]);
-		for (int i = 2; i < params.length; i++) {
-			if (isproperty) {
-				// add as a property to be audited
-				auditor.addPropertyForAudits(params[i], project);
-				project.log("Added BreakPoint at Property: " + params[2]);
-			} else {
+		String command = params[0];
+		if ("break".equalsIgnoreCase(command)) {
+			for (int i = 1; i < params.length; i++) {
 				debugtargets.add(params[i]);
-				project.log("Added BreakPoint at Target: " + params[2]);
+				project.log("Added BreakPoint at Target: " + params[i]);
 			}
+		} else if ("watch".equalsIgnoreCase(command)) {
+			/*
+			 * watch points for properties
+			 */
+			for (int i = 1; i < params.length; i++) {
+				auditor.addPropertyForAudits(params[i], project);
+				project.log("Added BreakPoint at Property: " + params[i]);
+			}
+		} else if ("info".equalsIgnoreCase(command)) {
+			// TODO show all break points and watch points here
 		}
 	}
 
 	public void printUsage(Project project) {
+		project.log("Usage: break property some.property.1 some.property.2");
+		project.log("       break target some.target.1 some.target.2");
 		project
-				.log("Some Helpful Message to add debug/property break points at runtime.");
+				.log("The above command will add all properties/targets as breakpoints.");
 	}
 
 }

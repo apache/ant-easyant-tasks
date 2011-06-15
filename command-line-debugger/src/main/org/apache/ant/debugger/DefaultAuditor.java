@@ -14,9 +14,9 @@ import org.apache.tools.ant.PropertyHelper;
  * acts as a Debug command permitting the recorded audits to be available on
  * user commands.
  * <p />
- * Optionally, this class allows a {@link DebugPrompt} instance to attach itself to
- * this auditor, so that if change to a certain property is attempted, then the
- * debugger may be chosen to be transferred the control to.
+ * Optionally, this class allows a {@link DebugPrompt} instance to attach itself
+ * to this auditor, so that if change to a certain property is attempted, then
+ * the debugger may be chosen to be transferred the control to.
  */
 public class DefaultAuditor implements Auditor, DebugSupport {
 
@@ -67,13 +67,15 @@ public class DefaultAuditor implements Auditor, DebugSupport {
 		return (List) propertyaudits.get(key);
 	}
 
-	public boolean commandSupported(String command) {
-		return "trace".equals(command);
-	}
-
 	public void execute(Project project, String[] params) {
-		if (params.length != 2) {
+		if (params.length > 1 && "/?".equals(params[1])) {
 			printUsage(project);
+			return;
+		}
+		if (params.length != 2) {
+			project.log("Incorrect Parameters");
+			printUsage(project);
+			return;
 		}
 
 		String property = params[1];
@@ -92,7 +94,9 @@ public class DefaultAuditor implements Auditor, DebugSupport {
 	}
 
 	public void printUsage(Project project) {
-		project.log("Some HelpFul Message here");
+		project.log("Usage: trace some.property");
+		project
+				.log("The above command will return all modification attempts on the specified property.");
 	}
 
 }

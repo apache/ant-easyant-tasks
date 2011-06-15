@@ -4,13 +4,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 
 /**
- * Handles all debug support functionality.
+ * Handles all debug support functionality. This is initialized by the
+ * {@link #init(Map)} method which accepts a set of {@link DebugSupport}
+ * instances. Additionally, it reads and initializes a set of commands from
+ * debug-support.properties for further support. New commands may be added by
+ * making entries in the said file.
  */
 public class DebugCommandSet {
 
@@ -66,7 +72,8 @@ public class DebugCommandSet {
 		} catch (IOException ioe) {
 			// if the resource could not be located, then initialize with what
 			// is known
-			throw new RuntimeException(ioe);
+			throw new BuildException(
+					"Could not locate debug-support.properties");
 		}
 	}
 
@@ -85,6 +92,7 @@ public class DebugCommandSet {
 		if (selected != null) {
 			selected.execute(project, tokens);
 		} else {
+			project.log("'" + command + "' not a recognized command.");
 			printUsage();
 		}
 	}
@@ -92,9 +100,12 @@ public class DebugCommandSet {
 	protected void printUsage() {
 		// log all help stuff here
 		project
-				.log("You may use one of the following commands: locate, inspect, return");
-		project
-				.log("Type the command followed by /? for more information. Eg. inspect /?");
+				.log("Use one of the following commands. Type the command followed by /? for further help on the command.");
+		Iterator it = commandSupport.keySet().iterator();
+		while (it.hasNext()) {
+			String command = (String) it.next();
+			project.log("  - " + command);
+		}
 	}
 
 }

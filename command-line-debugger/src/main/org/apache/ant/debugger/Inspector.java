@@ -7,17 +7,19 @@ import org.apache.tools.ant.types.ResourceCollection;
 import org.apache.tools.ant.util.StringUtils;
 
 /**
- * Inspects the current value of a property, path or some reference.
+ * Inspects the current value of a property or path.
  */
 public class Inspector implements DebugSupport {
 
-	public boolean commandSupported(String command) {
-		return "inspect".equalsIgnoreCase(command);
-	}
-
 	public void execute(Project project, String[] params) {
-		if (params.length < 3 || "/?".equals(params[1])) {
+		if (params.length > 1 && "/?".equals(params[1])) {
 			printUsage(project);
+			return;
+		}
+		if (params.length < 3) {
+			project.log("Incorrect Parameters");
+			printUsage(project);
+			return;
 		}
 
 		if ("property".equalsIgnoreCase(params[1])) {
@@ -53,7 +55,6 @@ public class Inspector implements DebugSupport {
 	}
 
 	public void printUsage(Project project) {
-		project.log("Incorrect Parameters");
 		project.log("Usage: inspect property some.property");
 		project.log("       inspect path path.id");
 	}
