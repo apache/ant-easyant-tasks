@@ -32,7 +32,7 @@
 		<mkdir dir="${build.dir}" />
 		<mkdir dir="${build.classes}" />
 
-		<javac srcdir="${java.dir}" includeantruntime="true" destdir="${build.classes}" debug="on" target="1.4" source="1.4" />
+		<javac srcdir="${java.dir}" includeantruntime="true" destdir="${build.classes}" debug="on" target="1.2" source="1.2" />
 
 		<copy todir="${build.classes}">
 			<fileset dir="${java.dir}">

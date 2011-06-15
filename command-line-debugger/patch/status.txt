@@ -1,5 +1,0 @@
-M       src\main\org\apache\tools\ant\helper\ProjectHelper2.java
-M       src\main\org\apache\tools\ant\Project.java
-A       src\main\org\apache\tools\ant\DebugTask.java
-M       src\main\org\apache\tools\ant\taskdefs\defaults.properties
-M       src\main\org\apache\tools\ant\Main.java
