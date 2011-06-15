@@ -24,6 +24,10 @@
 	<property name="build.artifact.dir" value="${build.dir}/artifacts" />
 	<property name="java.dir" value="src/main" />
 
+	<target name="clean">
+		<delete dir="${build.dir}" />
+	</target>
+	
 	<target name="compile">
 		<mkdir dir="${build.dir}" />
 		<mkdir dir="${build.classes}" />
