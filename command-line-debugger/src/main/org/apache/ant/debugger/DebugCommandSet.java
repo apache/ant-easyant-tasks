@@ -31,7 +31,7 @@ public class DebugCommandSet {
 			commandSupport.putAll(commands);
 		Properties props = new Properties();
 		try {
-			InputStream is = DebugCommandSet.class.getClassLoader()
+			InputStream is = Thread.currentThread().getContextClassLoader()
 					.getResourceAsStream(
 							"org/apache/ant/debugger/debug-support.properties");
 			props.load(is);
