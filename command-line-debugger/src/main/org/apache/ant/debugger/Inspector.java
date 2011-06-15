@@ -26,7 +26,7 @@ public class Inspector implements DebugSupport {
 			// show all matches for a property
 			Object value = PropertyHelper.getProperty(project, params[2]);
 			if (value != null) {
-				project.log("Detected a property by name [" + params[1]
+				project.log("Detected a property by name [" + params[2]
 						+ "]. Current value: " + value);
 			} else {
 				project.log("Found no such property.");
