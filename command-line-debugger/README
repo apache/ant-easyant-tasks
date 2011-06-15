@@ -1,0 +1,46 @@
+HOWTO Use Ant Command Line Debugger
+-----------------------------------
+
+1. You can build using EasyAnt or Ant. If you have EasyAnt setup simply run EasyAnt. The build will generate a cl-debugger.jar artiface in target/artifacts directory.
+
+2. If you are using Ant, the default target will generate cl-debugger.jar in target directory.
+
+3. To use the debugger, launch Ant with any project passing the path to cl-debugger.jar in the -lib parameter. Eg.
+
+ant -lib path/to/cl-debugger.jar -listener org.apache.tools.ant.listener.DebuggerListener
+
+4. The debugger does not take any other command line parameter. Just as the build starts you will be prompted with:
+
+Buildfile: D:\sandboxes\ant-svn\build.xml
+
+-------- Ant Command Line Debugger --------
+
+Type /? to get any help.
+
+Debugger>
+
+At this point, you can choose to add as many breakpoints or watchpoints (for properties) as you want to. Typing /? will list all commands currently available. These are also listed below:
+
+Debugger>
+/?
+Use one of the following commands. Type the command followed by /? for further help on the command.
+  - break: Adds a break point
+  - trace: Prints all attempts made to modify the value of a property
+  - watch: Adds a watch point (pauses execution and presents a prompt) whenever a property is attempted to be modified
+  - return: Returns from the debugger and resumes the build
+  - locate: Locates (statically) where a particular property is located in build file
+  - inspect: Inspects the current value of a property or a path
+  
+You may add multiple breakpoints or watch points in this manner:
+  break some.target.1 some.target.2 ... some.target.n
+  watch some.prop.1 some.prop.2 ... some.prop.n
+  
+To see the current value of a property or a path use:
+  inspect property some.prop
+  inspect path some.path
+
+To see the all attempted modifications to a property use:
+  trace some.property
+  
+To find the location of a property in the build files use:
+  locate property some.property
