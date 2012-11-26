@@ -18,9 +18,6 @@
     <info organisation="org.apache.easyant.tasks" module="cl-debugger" status="integration" revision="0.1">
         <extends organisation="org.apache.easyant.tasks" module="parent-task" revision="0.1"/>
         <ea:build module="build-std-java" revision="0.9" />
-        <ea:property name="src.main.java" value="src/main" />
-        <ea:property name="src.main.resources" value="src/main" />
-        <ea:property name="resources.std.includes.pattern" value="**/*.properties" />
     </ea:build>
     </info>
     <configurations>
