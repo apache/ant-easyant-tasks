@@ -31,5 +31,6 @@
     </configurations>
     <dependencies>
         <dependency org="org.apache.ant" name="ant" rev="1.7.1" conf="provided->default" />
+        <dependency org="junit" name="junit" rev="4.4" conf="test->default" />
     </dependencies>
 </ivy-module>
